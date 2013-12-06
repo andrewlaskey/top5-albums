@@ -18,7 +18,7 @@
         <input type="text" ng-model="bandName" placeholder="Band Name">
         <input type="text" ng-model="albumName" ng-keydown="addAlbum($event)" placeholder="Album Name">
         <table id="messagesDiv">
-          <tr ng-repeat="album in albums">
+          <tr ng-repeat="album in albums | orderBy:'score':true">
             <td>{{album.bandName}}</td>
             <td>{{album.albumName}}</td>
             <td>{{album.score}}</td>
