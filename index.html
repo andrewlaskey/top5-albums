@@ -1,0 +1,56 @@
+<html ng-app="top5app">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>Top 5's Best Albums 2013</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js'></script>
+    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
+    <script src='https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js'></script>
+  </head>
+  <body ng-controller="MyController">
+    <div class="row">
+      <div class="large-6 large-centered">
+        <h1>Current Top 5's Best Albums 2013</h1>
+        <p>Enter your top 10 best albums of the past year.</p>
+        <p>Write in band name and album name and hit enter to submit an album. If someone else already submitted the same album, that album's score will increase. There's no check on how many you can enter, so try to remember how many you've done and keep it to ten. Honor system guys.</p> 
+        <input type="text" ng-model="bandName" placeholder="Band Name">
+        <input type="text" ng-model="albumName" ng-keydown="addAlbum($event)" placeholder="Album Name">
+        <table id="messagesDiv">
+          <tr ng-repeat="album in albums">
+            <td>{{album.bandName}}</td>
+            <td>{{album.albumName}}</td>
+            <td>{{album.score}}</td>
+        </table>
+      </div>
+    </div>
+    
+    <script>
+      function contains( haystack, needle ) {
+         for (i in haystack) {
+             if (haystack[i].albumName == needle) return i;
+         }
+         return -1;
+      }
+
+      var app = angular.module("top5app", ["firebase"]);
+      function MyController($scope, angularFire) {
+        var ref = new Firebase("https://top5.firebaseIO.com/");
+        $scope.albums = [];
+        angularFire(ref, $scope, "albums");
+        $scope.addAlbum = function(e) {
+          if (e.keyCode != 13) return;
+
+          var index = contains($scope.albums, $scope.albumName);
+          if ( index >= 0) {
+            $scope.albums[index].score++;
+          } else {
+            $scope.albums.push({bandName: $scope.bandName, albumName: $scope.albumName, score: 0});  
+          }
+          
+          $scope.name = "";
+        };
+      }
+    </script>
+  </body>
+</html>
