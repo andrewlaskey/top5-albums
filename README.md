@@ -1,1 +1,0 @@
-This is an AngularFire application for keeping track of the Current Top 5s Best Albums of 2013.
