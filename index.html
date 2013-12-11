@@ -15,21 +15,32 @@
         <p>Enter your top 10 best albums of the past year.</p>
         <p>Write in band name and album name and hit enter to submit an album. If someone else already submitted the same album, that album's score will increase. There's no check on how many you can enter, so try to remember how many you've done and keep it to ten. Honor system guys.</p>
         <p>Also try not to make any mistakes. There's no delete button, so I have to go into the database to make any corrections manually.</p>
+        <input type="text" ng-model="userName" placeholder="Your Name">
         <input type="text" ng-model="bandName" placeholder="Band Name">
         <input type="text" ng-model="albumName" ng-keydown="addAlbum($event)" placeholder="Album Name">
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-9 large-centered columns">
         <table id="messagesDiv">
           <tr>
             <th>Band</th>
             <th>Album</th>
             <th>Votes</th>
+            <th>Who Like</th>
           </tr>
           <tr ng-repeat="album in albums | orderBy:'score':true">
             <td>{{album.bandName}}</td>
             <td>{{album.albumName}}</td>
             <td>{{album.score}}</td>
+            <td>{{album.listnames}}</td>
           </tr>
         </table>
-        <p><small>v0.4</small></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 large-centered columns">
+        <p><small>v0.5 - View on <a href="https://github.com/andrewlaskey/top5-albums" title="Top 5 Albums on Github">Github</a></small></p>
       </div>
     </div>
     
@@ -46,17 +57,25 @@
         var ref = new Firebase("https://top5.firebaseIO.com/");
         $scope.albums = [];
         angularFire(ref, $scope, "albums");
+        $scope
         $scope.addAlbum = function(e) {
           if (e.keyCode != 13) return;
 
           var index = contains($scope.albums, $scope.albumName);
           if ( index >= 0) {
             $scope.albums[index].score++;
+            $scope.albums[index].listnames += ', ' + $scope.userName;
           } else {
-            $scope.albums.push({bandName: $scope.bandName, albumName: $scope.albumName, score: 1});  
+            $scope.albums.push({
+              bandName: $scope.bandName,
+              albumName: $scope.albumName,
+              score: 1,
+              listnames: $scope.userName
+            });  
           }
           
-          $scope.name = "";
+          $scope.bandName = "";
+          $scope.albumName = "";
         };
       }
     </script>
