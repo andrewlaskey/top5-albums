@@ -73,7 +73,6 @@
         var ref = new Firebase("https://top5.firebaseIO.com/");
         $scope.albums = [];
         angularFire(ref, $scope, "albums");
-        $scope
         $scope.addAlbum = function(e) {
 
           var index = contains($scope.albums, $scope.albumName);
