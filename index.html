@@ -10,18 +10,23 @@
   </head>
   <body ng-controller="MyController">
     <div class="row">
-      <div class="large-6 large-centered columns">
+      <div class="large-12 columns">
         <h1>Current Top 5's Best Albums 2013</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-5 columns">
         <p>Enter your top 10 best albums of the past year.</p>
         <p>Write in band name and album name and hit enter to submit an album. If someone else already submitted the same album, that album's score will increase. There's no check on how many you can enter, so try to remember how many you've done and keep it to ten. Honor system guys.</p>
         <p>Also try not to make any mistakes. There's no delete button, so I have to go into the database to make any corrections manually.</p>
         <input type="text" ng-model="userName" placeholder="Your Name">
         <input type="text" ng-model="bandName" placeholder="Band Name">
         <input type="text" ng-model="albumName" ng-keydown="addAlbum($event)" placeholder="Album Name">
+        <p><small>v0.5.1 - View on <a href="https://github.com/andrewlaskey/top5-albums" title="Top 5 Albums on Github">Github</a></small></p>
       </div>
-    </div>
-    <div class="row">
-      <div class="large-9 large-centered columns">
+
+      <div class="large-7 columns">
         <table id="messagesDiv">
           <tr>
             <th>Band</th>
@@ -37,11 +42,7 @@
           </tr>
         </table>
       </div>
-    </div>
-    <div class="row">
-      <div class="large-6 large-centered columns">
-        <p><small>v0.5 - View on <a href="https://github.com/andrewlaskey/top5-albums" title="Top 5 Albums on Github">Github</a></small></p>
-      </div>
+
     </div>
     
     <script>
