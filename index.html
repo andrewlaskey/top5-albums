@@ -21,24 +21,23 @@
         <p>Directions:</p>
         <ul>
           <li>Rank your top 10 favorite albums of 2013</li>
-          <li>Score them so your #1 album gets 10 points, #2 get 9, etc.</li>
-          <li>Enter each album, one at a time with the form below</li>
-          <li>Write in your name, band name, album name, and your score for that album</li>
+          <li><em>The score will be calculated automatically based on rank (Thanks Shahan)</em></li>
+          <li>Write in your name, band name, album name, and its rank for that album</li>
           <li>Click "Vote"</li>
-          <li>Keep track of what you voted for and how much</li>
+          <li>Keep track of what you voted for</li>
         </ul>
         <input type="text" ng-model="userName" placeholder="Your Name">
         <input type="text" ng-model="bandName" placeholder="Band Name">
         <input type="text" ng-model="albumName" placeholder="Album Name">
         <div class="row collapse">
           <div class="small-9 columns">
-            <input type="number" name="input" ng-model="userScore" min="1" max="10">
+            <input type="number" name="input" ng-model="userScore" min="1" max="10" placeholder="Rank">
           </div>
           <div class="small-3 columns">
             <button class="postfix" ng-click="addAlbum($event)">VOTE!</button>
           </div>
         </div>
-        <p><small>v0.6.1 - View on <a href="https://github.com/andrewlaskey/top5-albums" title="Top 5 Albums on Github">Github</a></small></p>
+        <p><small>v0.6.3 - View on <a href="https://github.com/andrewlaskey/top5-albums" title="Top 5 Albums on Github">Github</a></small></p>
       </div>
 
       <div class="large-7 columns">
@@ -77,7 +76,7 @@
 
           var index = contains($scope.albums, $scope.albumName);
           if ( index >= 0) {
-            $scope.albums[index].score += $scope.userScore;
+            $scope.albums[index].score += (11 - $scope.userScore);
             $scope.albums[index].listnames += ', ' + $scope.userName;
           } else {
             $scope.albums.push({
@@ -90,7 +89,7 @@
           
           $scope.bandName = "";
           $scope.albumName = "";
-          $scope.userScore = 1;
+          $scope.userScore = "";
         };
       }
     </script>
